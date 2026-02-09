@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -31,17 +30,25 @@ class User extends Authenticatable
         ];
     }
 
-    // RELASI ROLE
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id', 'id_role');
     }
 
-    //CEK ADMIN
-    public function isAdmin()
-    {
-        return $this->role && $this->role->nama_role === 'admin';
+
+    public function isAdmin() {
+        return str_starts_with($this->role?->kode_role ?? '', 'ADM');
     }
 
+
+    public function isPetugas()
+    {
+        return str_starts_with($this->role?->kode_role ?? '', 'PTG');
+    }
+
+    public function isPeminjam()
+    {
+        return str_starts_with($this->role?->kode_role ?? '', 'PMJ');
+    }
 
 }

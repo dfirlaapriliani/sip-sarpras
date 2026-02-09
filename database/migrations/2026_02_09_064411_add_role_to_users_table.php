@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('roles', function (Blueprint $table) {
-        $table->id('id_role');
-        $table->string('kode_role')->unique();
-        $table->string('nama_role');
-        $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+        $table->string('role')->default('peminjam');
     });
-        
+
     }
 
     /**
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

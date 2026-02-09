@@ -1,0 +1,157 @@
+/* ==========================================
+   BACKGROUND STYLING
+   ========================================== */
+body {
+    background-color: #1a1a1a; /* Fallback */
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/bg.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* ==========================================
+   SIDEBAR FIXED POSITION
+   ========================================== */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 16rem;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 40;
+}
+
+/* ==========================================
+   HAMBURGER BUTTON
+   ========================================== */
+#hamburger {
+    z-index: 9999 !important;
+    position: fixed !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    top: 1rem !important;
+    left: 1rem !important;
+}
+
+/* ==========================================
+   SIDEBAR OVERLAY
+   ========================================== */
+#sidebar-overlay {
+    z-index: 35 !important;
+    pointer-events: auto !important;
+}
+
+/* ==========================================
+   NAVBAR DROPDOWNS
+   ========================================== */
+#dropdown-menu,
+#dashboard-menu {
+    z-index: 99999 !important;
+    position: absolute !important;
+    pointer-events: auto !important;
+}
+
+/* ==========================================
+   LOGOUT MODAL
+   ========================================== */
+#logout-modal {
+    z-index: 999999 !important;
+    pointer-events: auto !important;
+}
+
+/* ==========================================
+   INTERACTIVE ELEMENTS
+   ========================================== */
+button, a {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+}
+
+/* ==========================================
+   DROPDOWN DISPLAY
+   ========================================== */
+#dropdown-menu:not(.hidden),
+#dashboard-menu:not(.hidden) {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* ==========================================
+   DROPDOWN ANIMATION
+   ========================================== */
+#dropdown-menu.show {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE
+   ========================================== */
+@media (max-width: 1023px) {
+    #sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    #sidebar:not(.-translate-x-full),
+    #sidebar.translate-x-0 {
+        transform: translateX(0) !important;
+    }
+    
+    .lg\:ml-64 {
+        margin-left: 0 !important;
+    }
+    
+    #hamburger {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+/* ==========================================
+   DESKTOP RESPONSIVE
+   ========================================== */
+@media (min-width: 1024px) {
+    #sidebar {
+        transform: translateX(0) !important;
+    }
+    
+    .lg\:ml-64 {
+        margin-left: 16rem !important;
+    }
+    
+    #hamburger {
+        display: none !important;
+    }
+    
+    main {
+        min-height: calc(100vh - 4rem);
+    }
+}

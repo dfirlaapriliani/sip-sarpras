@@ -142,18 +142,7 @@
         </div>
     </div>
 
-    <!-- Activity Info -->
-    <div class="mt-6 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg p-6 text-white">
-        <div class="flex flex-col md:flex-row items-center justify-between">
-            <div class="mb-4 md:mb-0">
-                <h3 class="text-lg md:text-xl font-bold mb-2">💡 Tips Hari Ini</h3>
-                <p class="text-sm md:text-base text-blue-100">Pastikan untuk selalu mengecek status peminjaman barang secara berkala</p>
-            </div>
-            <button class="bg-white text-blue-600 px-6 py-2 rounded-lg font-medium hover:bg-blue-50 transition-colors duration-200 text-sm md:text-base">
-                Lihat Detail
-            </button>
-        </div>
-    </div>
+    <!-- penutup -->
 </div>
 
 <script>

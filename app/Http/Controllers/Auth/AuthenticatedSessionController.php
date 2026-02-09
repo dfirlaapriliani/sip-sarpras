@@ -16,20 +16,33 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
-    public function store(LoginRequest $request)
+    public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
         $request->session()->regenerate();
 
-        $user = Auth::user();
+        $user = auth()->user();
 
-        if ($user && $user->isAdmin()) {
+        if (!$user || !$user->role) {
+            return redirect('/dashboard');
+        }
+
+        $kodeRole = $user->role->kode_role;
+
+        if (str_starts_with($kodeRole, 'ADM')) {
             return redirect()->route('admin.dashboard');
         }
 
-        return redirect()->route('dashboard');
-    }
+        if (str_starts_with($kodeRole, 'PTG')) {
+            return redirect()->route('petugas.dashboard');
+        }
 
+        if (str_starts_with($kodeRole, 'PMJ')) {
+            return redirect()->route('peminjam.dashboard');
+        }
+
+        return redirect('/dashboard');
+    }
 
     public function destroy(Request $request): RedirectResponse
     {

@@ -1,34 +1,64 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Petugas\PetugasDashboardController;
+use App\Http\Controllers\Peminjam\PeminjamController;
+use App\Http\Controllers\Admin\RoleManagementController;
 
-// bagian welcome
+
+// Welcome
 Route::get('/', function () {
     return view('welcome');
 });
 
-// bagian dashboard user
+// Dashboard user umum
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// bagian admin dashboard
+// ================= ADMIN =================
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])
         ->name('admin.dashboard');
 });
 
-// bagian profile
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/rolemanagement', [RoleManagementController::class, 'index'])
+            ->name('rolemanagement.index');
+        Route::get('/rolemanagement/{id}', [RoleManagementController::class, 'show'])
+            ->name('rolemanagement.show');
+        Route::put('/rolemanagement/{id}', [RoleManagementController::class, 'updateRole'])
+            ->name('rolemanagement.update');
+        Route::delete('/rolemanagement/{id}', [RoleManagementController::class, 'destroy'])
+            ->name('rolemanagement.destroy');
+});
+
+// ================= PETUGAS =================
+Route::middleware(['auth', 'role.code:PTG001'])->group(function () {
+    Route::get('/petugas', [PetugasDashboardController::class, 'index'])
+        ->name('petugas.dashboard');
+});
+
+// ================= PEMINJAM =================
+Route::middleware(['auth', 'role.code:PMJ'])->group(function () {
+    Route::get('/peminjam', [PeminjamController::class, 'index'])
+        ->name('peminjam.dashboard');
+});
+
+// ================= PROFILE =================
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// bagian logout
+// ================= LOGOUT =================
 Route::post('/logout', function () {
     Auth::logout();
     request()->session()->invalidate();
@@ -36,5 +66,16 @@ Route::post('/logout', function () {
 
     return redirect('/login');
 })->name('logout');
+
+// ================= DEBUG ROLE =================
+Route::get('/debug-role', function () {
+    return auth()->check() 
+        ? auth()->user()->role 
+        : 'BELUM LOGIN BRO 💀';
+});
+
+Route::get('/cek-role', function () {
+    dd(auth()->user()->role);
+});
 
 require __DIR__.'/auth.php';

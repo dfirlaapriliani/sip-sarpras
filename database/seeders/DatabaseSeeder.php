@@ -5,10 +5,12 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
+    
 
     /**
      * Seed the application's database.
@@ -21,5 +23,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+    Role::insert([
+        ['kode_role' => 'ADM001', 'nama_role' => 'Admin'],
+        ['kode_role' => 'PTG001', 'nama_role' => 'Petugas'],
+        ['kode_role' => 'PMJ001', 'nama_role' => 'Peminjam'],
+    ]);
+
     }
 }
