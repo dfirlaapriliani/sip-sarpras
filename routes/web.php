@@ -8,7 +8,6 @@ use App\Http\Controllers\Petugas\PetugasDashboardController;
 use App\Http\Controllers\Peminjam\PeminjamController;
 use App\Http\Controllers\Admin\RoleManagementController;
 
-
 // Welcome
 Route::get('/', function () {
     return view('welcome');
@@ -65,15 +64,21 @@ Route::middleware(['auth', 'role:ADM'])
 });
 
 // ================= PETUGAS =================
-Route::middleware(['auth', 'role:PTG'])->group(function () {
-    Route::get('/petugas', [PetugasDashboardController::class, 'index'])
-        ->name('petugas.dashboard');
+Route::middleware(['auth', 'role:PTG'])
+    ->prefix('petugas')
+    ->name('petugas.')
+    ->group(function () {
+        Route::get('/dashboard', [PetugasDashboardController::class, 'index'])
+            ->name('dashboard');
 });
 
 // ================= PEMINJAM =================
-Route::middleware(['auth', 'role:PMJ'])->group(function () {
-    Route::get('/peminjam', [PeminjamController::class, 'index'])
-        ->name('peminjam.dashboard');
+Route::middleware(['auth', 'role:PMJ'])
+    ->prefix('peminjam')
+    ->name('peminjam.')
+    ->group(function () {
+        Route::get('/dashboard', [PeminjamController::class, 'index'])
+            ->name('dashboard');
 });
 
 // ================= PETUGAS =================
