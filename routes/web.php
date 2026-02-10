@@ -14,9 +14,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Dashboard user umum
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $user = auth()->user();
+    
+    if (!$user || !$user->role || !$user->role->kode_role) {
+        Auth::logout();
+        return redirect('/login')->withErrors(['role' => 'Akun Anda belum memiliki role yang valid. Silakan hubungi admin.']);
+    }
+
+    $kodeRole = $user->role->kode_role;
+
+    if (str_starts_with($kodeRole, 'ADM')) {
+        return redirect()->route('admin.dashboard');
+    }
+
+    if (str_starts_with($kodeRole, 'PTG')) {
+        return redirect()->route('petugas.dashboard');
+    }
+
+    if (str_starts_with($kodeRole, 'PMJ')) {
+        return redirect()->route('peminjam.dashboard');
+    }
+
+    Auth::logout();
+    return redirect('/login')->withErrors(['role' => 'Role Anda tidak dikenali. Silakan hubungi admin.']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // ================= ADMIN =================
@@ -25,10 +46,14 @@ Route::middleware(['auth'])->group(function () {
         ->name('admin.dashboard');
 });
 
-Route::middleware(['auth', 'role:admin'])
+// ================= ADMIN =================
+Route::middleware(['auth', 'role:ADM'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('dashboard');
+            
         Route::get('/rolemanagement', [RoleManagementController::class, 'index'])
             ->name('rolemanagement.index');
         Route::get('/rolemanagement/{id}', [RoleManagementController::class, 'show'])
@@ -40,13 +65,25 @@ Route::middleware(['auth', 'role:admin'])
 });
 
 // ================= PETUGAS =================
-Route::middleware(['auth', 'role.code:PTG001'])->group(function () {
+Route::middleware(['auth', 'role:PTG'])->group(function () {
     Route::get('/petugas', [PetugasDashboardController::class, 'index'])
         ->name('petugas.dashboard');
 });
 
 // ================= PEMINJAM =================
-Route::middleware(['auth', 'role.code:PMJ'])->group(function () {
+Route::middleware(['auth', 'role:PMJ'])->group(function () {
+    Route::get('/peminjam', [PeminjamController::class, 'index'])
+        ->name('peminjam.dashboard');
+});
+
+// ================= PETUGAS =================
+Route::middleware(['auth', 'role:petugas'])->group(function () {
+    Route::get('/petugas', [PetugasDashboardController::class, 'index'])
+        ->name('petugas.dashboard');
+});
+
+// ================= PEMINJAM =================
+Route::middleware(['auth', 'role:peminjam'])->group(function () {
     Route::get('/peminjam', [PeminjamController::class, 'index'])
         ->name('peminjam.dashboard');
 });

@@ -16,19 +16,27 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
-    public function store(LoginRequest $request): RedirectResponse
+        public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
         $request->session()->regenerate();
 
         $user = auth()->user();
 
-        if (!$user || !$user->role) {
+        // Debug: tambahkan ini sementara untuk cek
+        \Log::info('User login:', [
+            'user_id' => $user->id,
+            'role' => $user->role,
+            'kode_role' => $user->role->kode_role ?? 'TIDAK ADA ROLE'
+        ]);
+
+        if (!$user || !$user->role || !$user->role->kode_role) {
             return redirect('/dashboard');
         }
 
         $kodeRole = $user->role->kode_role;
 
+        // Pastikan pengecekan prefix benar
         if (str_starts_with($kodeRole, 'ADM')) {
             return redirect()->route('admin.dashboard');
         }
@@ -41,6 +49,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('peminjam.dashboard');
         }
 
+        // Fallback
         return redirect('/dashboard');
     }
 

@@ -13,12 +13,22 @@ class RoleMiddleware
         $user = auth()->user();
 
         if (!$user || !$user->role) {
-            abort(403);
+            abort(403, 'Anda tidak memiliki akses.');
         }
 
-        // contoh: ADM, PTG, PMJ
-        if (!str_starts_with($user->role->kode_role, strtoupper(substr($role, 0, 3)))) {
-            abort(403);
+        // Mapping nama role ke prefix kode
+        $roleMap = [
+            'admin' => 'ADM',
+            'petugas' => 'PTG',
+            'peminjam' => 'PMJ',
+        ];
+
+        // Kalau input sudah berupa kode (ADM, PTG, PMJ), langsung pakai
+        // Kalau input berupa nama (admin, petugas, peminjam), convert dulu
+        $prefix = $roleMap[strtolower($role)] ?? strtoupper($role);
+
+        if (!str_starts_with($user->role->kode_role, $prefix)) {
+            abort(403, 'Anda tidak memiliki akses.');
         }
 
         return $next($request);
