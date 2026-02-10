@@ -41,6 +41,26 @@
             <div class="w-2 h-2 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
         </a>
 
+        <!-- Category Management -->
+        <a href="{{ route('admin.categories.index') }}" 
+        class="nav-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 group {{ request()->routeIs('admin.categories*') ? 'active' : '' }}">
+
+            <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center group-hover:bg-blue-500 transition-colors duration-200 icon-box-3d">
+                <!-- ICON CATEGORY -->
+                <svg class="w-5 h-5 text-gray-600 group-hover:text-white transition-colors duration-200" 
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M3 7h5l2 3h11v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+                </svg>
+            </div>
+
+            <div class="flex-1">
+                <span class="font-medium text-sm">Category Management</span>
+            </div>
+
+            <div class="w-2 h-2 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+        </a>
+
         <!-- Barang -->
         <a href="#" 
            class="nav-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 group {{ request()->routeIs('admin.barang*') ? 'active' : '' }}">

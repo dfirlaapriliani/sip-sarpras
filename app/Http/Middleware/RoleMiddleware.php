@@ -8,27 +8,29 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next, string $requiredRole): Response
     {
-        $user = auth()->user();
-
-        if (!$user || !$user->role) {
-            abort(403, 'Anda tidak memiliki akses.');
+        // Cek apakah user sudah login
+        if (!auth()->check()) {
+            abort(403, 'Unauthorized');
         }
 
-        // Mapping nama role ke prefix kode
-        $roleMap = [
-            'admin' => 'ADM',
-            'petugas' => 'PTG',
-            'peminjam' => 'PMJ',
-        ];
+        $user = auth()->user();
+        
+        // Load relasi role kalau belum ter-load
+        if (!$user->relationLoaded('role')) {
+            $user->load('role');
+        }
+        
+        // Pastikan role adalah object, bukan string
+        $roleObject = $user->getRelation('role');
+        
+        // Ambil kode role
+        $userRoleCode = $roleObject?->kode_role ?? null;
 
-        // Kalau input sudah berupa kode (ADM, PTG, PMJ), langsung pakai
-        // Kalau input berupa nama (admin, petugas, peminjam), convert dulu
-        $prefix = $roleMap[strtolower($role)] ?? strtoupper($role);
-
-        if (!str_starts_with($user->role->kode_role, $prefix)) {
-            abort(403, 'Anda tidak memiliki akses.');
+        // Cek apakah role user sesuai dengan yang diminta
+        if (!$userRoleCode || !str_starts_with($userRoleCode, $requiredRole)) {
+            abort(403, 'Role user tidak valid.');
         }
 
         return $next($request);

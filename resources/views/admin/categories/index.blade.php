@@ -1,19 +1,32 @@
 @extends('layout_admin.admin')
-@section('title', 'Dashboard Admin')
-@section('page-title', 'Admin Dashboard')
+
+@section('title', 'Kategori')
+@section('page-title', 'Manajemen Kategori')
+
 @section('content')
 <div class="p-4 sm:p-6 lg:p-8">
     <!-- Header Section -->
     <div class="mb-6">
-        <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
-                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                </svg>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-xl sm:text-2xl text-gray-800">Manajemen Kategori</h1>
+                </div>
+                <p class="text-gray-500 text-sm ml-13">Kelola kategori produk sistem</p>
             </div>
-            <h1 class="text-xl sm:text-2xl text-gray-800">Role Management</h1>
+            <a href="{{ route('admin.categories.create') }}" 
+               class="inline-flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Tambah Kategori
+            </a>
         </div>
-        <p class="text-gray-500 text-sm ml-13">Kelola pengguna dan role sistem</p>
     </div>
 
     <!-- Success Alert -->
@@ -49,35 +62,27 @@
         </div>
 
         <!-- Desktop Table -->
-        <div class="hidden lg:block overflow-x-auto">
+        <div class="hidden md:block overflow-x-auto">
             <table class="w-full">
                 <thead>
                     <tr class="bg-gray-50/50 border-b border-gray-100">
-                        <th class="px-6 py-3 text-left text-xs text-gray-600 uppercase tracking-wider">
-                            <div class="flex items-center gap-2">
+                        <th class="px-6 py-3 text-center text-xs text-gray-600 uppercase tracking-wider w-20">
+                            <div class="flex items-center justify-center gap-2">
                                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path>
                                 </svg>
-                                Nama
+                                No
                             </div>
                         </th>
                         <th class="px-6 py-3 text-left text-xs text-gray-600 uppercase tracking-wider">
                             <div class="flex items-center gap-2">
                                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                                 </svg>
-                                Email
+                                Nama Kategori
                             </div>
                         </th>
-                        <th class="px-6 py-3 text-left text-xs text-gray-600 uppercase tracking-wider">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                                </svg>
-                                Role
-                            </div>
-                        </th>
-                        <th class="px-6 py-3 text-center text-xs text-gray-600 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-center text-xs text-gray-600 uppercase tracking-wider w-48">
                             <div class="flex items-center justify-center gap-2">
                                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
@@ -88,50 +93,40 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100" id="tableBody">
-                    @forelse ($users as $user)
-                        <tr class="hover:bg-gray-50/50 transition-colors user-row">
+                    @forelse($categories as $cat)
+                        <tr class="hover:bg-gray-50/50 transition-colors category-row">
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-500/10 text-blue-700 text-xs font-medium">
+                                    {{ $loop->iteration }}
+                                </span>
+                            </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600 text-sm font-medium">
-                                        {{ strtoupper(substr($user->name, 0, 1)) }}
+                                    <div class="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                        </svg>
                                     </div>
-                                    <span class="text-gray-700 text-sm">{{ $user->name }}</span>
+                                    <span class="text-gray-700 text-sm">{{ $cat->name }}</span>
                                 </div>
-                            </td>
-                            <td class="px-6 py-4 text-gray-600 text-sm">{{ $user->email }}</td>
-                            <td class="px-6 py-4">
-                                @if($user->role && is_object($user->role))
-                                    <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-blue-500/10 text-blue-700">
-                                        {{ $user->role->nama_role }}
-                                    </span>
-                                @elseif($user->role_id)
-                                    <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-yellow-100 text-yellow-700">
-                                        Role ID: {{ $user->role_id }}
-                                    </span>
-                                @else
-                                    <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-gray-100 text-gray-500">
-                                        Belum ada role
-                                    </span>
-                                @endif
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center justify-center gap-2">
-                                    <a href="{{ route('admin.rolemanagement.show', $user->id) }}"
+                                    <a href="{{ route('admin.categories.edit', $cat->id) }}"
                                        class="inline-flex items-center gap-1.5 bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 px-3 py-1.5 rounded-lg text-sm transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                         </svg>
-                                        Detail
+                                        Edit
                                     </a>
-                                    <form action="{{ route('admin.rolemanagement.destroy', $user->id) }}"
+                                    <form action="{{ route('admin.categories.destroy', $cat->id) }}"
                                           method="POST"
-                                          class="delete-form">
+                                          class="delete-form inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="button"
                                                 class="delete-btn inline-flex items-center gap-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-600 px-3 py-1.5 rounded-lg text-sm transition-colors"
-                                                data-user-name="{{ $user->name }}">
+                                                data-category-name="{{ $cat->name }}">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                             </svg>
@@ -143,11 +138,11 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-12 text-center text-gray-400">
+                            <td colspan="3" class="px-6 py-12 text-center text-gray-400">
                                 <svg class="w-12 h-12 mx-auto text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                                 </svg>
-                                <p class="text-sm">Tidak ada data user</p>
+                                <p class="text-sm">Belum ada kategori</p>
                             </td>
                         </tr>
                     @endforelse
@@ -156,48 +151,40 @@
         </div>
 
         <!-- Mobile View -->
-        <div class="lg:hidden divide-y divide-gray-100" id="mobileBody">
-            @forelse ($users as $user)
-                <div class="p-4 hover:bg-gray-50/50 transition-colors user-card">
+        <div class="md:hidden divide-y divide-gray-100" id="mobileBody">
+            @forelse($categories as $cat)
+                <div class="p-4 hover:bg-gray-50/50 transition-colors category-card">
                     <div class="flex items-start gap-3 mb-3">
-                        <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600 text-sm font-medium flex-shrink-0">
-                            {{ strtoupper(substr($user->name, 0, 1)) }}
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                            </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="text-gray-700 text-sm font-medium mb-1 truncate">{{ $user->name }}</h3>
-                            <p class="text-xs text-gray-500 truncate mb-2">{{ $user->email }}</p>
-                            @if($user->role && is_object($user->role))
-                                <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-blue-500/10 text-blue-700">
-                                    {{ $user->role->nama_role }}
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-500/10 text-blue-700 text-xs font-medium">
+                                    {{ $loop->iteration }}
                                 </span>
-                            @elseif($user->role_id)
-                                <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-yellow-100 text-yellow-700">
-                                    Role ID: {{ $user->role_id }}
-                                </span>
-                            @else
-                                <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-500">
-                                    Belum ada role
-                                </span>
-                            @endif
+                                <h3 class="text-gray-700 text-sm font-medium truncate">{{ $cat->name }}</h3>
+                            </div>
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <a href="{{ route('admin.rolemanagement.show', $user->id) }}"
+                        <a href="{{ route('admin.categories.edit', $cat->id) }}"
                            class="flex-1 inline-flex items-center justify-center gap-1.5 bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 px-3 py-2 rounded-lg text-sm transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                             </svg>
-                            Detail
+                            Edit
                         </a>
-                        <form action="{{ route('admin.rolemanagement.destroy', $user->id) }}"
+                        <form action="{{ route('admin.categories.destroy', $cat->id) }}"
                               method="POST"
                               class="flex-1 delete-form">
                             @csrf
                             @method('DELETE')
                             <button type="button"
                                     class="delete-btn w-full inline-flex items-center justify-center gap-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-600 px-3 py-2 rounded-lg text-sm transition-colors"
-                                    data-user-name="{{ $user->name }}">
+                                    data-category-name="{{ $cat->name }}">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                 </svg>
@@ -209,9 +196,9 @@
             @empty
                 <div class="p-8 text-center text-gray-400">
                     <svg class="w-12 h-12 mx-auto text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                     </svg>
-                    <p class="text-sm">Tidak ada data user</p>
+                    <p class="text-sm">Belum ada kategori</p>
                 </div>
             @endforelse
         </div>
@@ -219,7 +206,7 @@
         <!-- Pagination -->
         <div class="p-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="text-sm text-gray-600">
-                Showing <span id="showingStart">1</span> to <span id="showingEnd">10</span> of <span id="totalEntries">{{ count($users) }}</span> entries
+                Showing <span id="showingStart">1</span> to <span id="showingEnd">10</span> of <span id="totalEntries">{{ count($categories) }}</span> entries
             </div>
             <div class="flex items-center gap-1">
                 <button id="prevPage" class="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
@@ -249,12 +236,12 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Load saved settings from localStorage
-    let currentPage = parseInt(localStorage.getItem('rolemanagement_currentPage')) || 1;
-    let perPage = parseInt(localStorage.getItem('rolemanagement_perPage')) || 10;
+    let currentPage = parseInt(localStorage.getItem('categories_currentPage')) || 1;
+    let perPage = parseInt(localStorage.getItem('categories_perPage')) || 10;
     let filteredData = [];
     
-    const allRows = Array.from(document.querySelectorAll('.user-row'));
-    const allCards = Array.from(document.querySelectorAll('.user-card'));
+    const allRows = Array.from(document.querySelectorAll('.category-row'));
+    const allCards = Array.from(document.querySelectorAll('.category-card'));
     const searchInput = document.getElementById('searchInput');
     const perPageSelect = document.getElementById('perPage');
     
@@ -266,12 +253,12 @@ document.addEventListener('DOMContentLoaded', function() {
     deleteButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
-            const userName = this.getAttribute('data-user-name');
+            const categoryName = this.getAttribute('data-category-name');
             const form = this.closest('.delete-form');
             
             Swal.fire({
                 title: 'Konfirmasi Hapus',
-                html: `Apakah Anda yakin ingin menghapus user<br><strong>${userName}</strong>?`,
+                html: `Apakah Anda yakin ingin menghapus kategori<br><strong>${categoryName}</strong>?`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#ef4444',
@@ -316,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalPages = Math.ceil(filteredData.length / perPage);
         if (currentPage > totalPages && totalPages > 0) {
             currentPage = totalPages;
-            localStorage.setItem('rolemanagement_currentPage', currentPage);
+            localStorage.setItem('categories_currentPage', currentPage);
         }
         
         renderTable();
@@ -364,7 +351,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     : 'px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-600 text-sm transition-colors';
                 btn.onclick = () => {
                     currentPage = i;
-                    localStorage.setItem('rolemanagement_currentPage', currentPage);
+                    localStorage.setItem('categories_currentPage', currentPage);
                     renderTable();
                 };
                 pageNumbers.appendChild(btn);
@@ -381,15 +368,15 @@ document.addEventListener('DOMContentLoaded', function() {
     perPageSelect.addEventListener('change', function() {
         perPage = parseInt(this.value);
         currentPage = 1;
-        localStorage.setItem('rolemanagement_perPage', perPage);
-        localStorage.setItem('rolemanagement_currentPage', currentPage);
+        localStorage.setItem('categories_perPage', perPage);
+        localStorage.setItem('categories_currentPage', currentPage);
         renderTable();
     });
     
     document.getElementById('prevPage').addEventListener('click', function() {
         if (currentPage > 1) {
             currentPage--;
-            localStorage.setItem('rolemanagement_currentPage', currentPage);
+            localStorage.setItem('categories_currentPage', currentPage);
             renderTable();
         }
     });
@@ -398,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalPages = Math.ceil(filteredData.length / perPage);
         if (currentPage < totalPages) {
             currentPage++;
-            localStorage.setItem('rolemanagement_currentPage', currentPage);
+            localStorage.setItem('categories_currentPage', currentPage);
             renderTable();
         }
     });

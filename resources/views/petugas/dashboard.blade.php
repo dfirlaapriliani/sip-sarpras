@@ -1,15 +1,11 @@
-<div class="p-6">
-    <div class="flex justify-between items-center mb-4">
-        <h1 class="text-2xl font-bold">Dashboard Petugas</h1>
+@extends('layout_petugas.petugas')
 
-        <!-- Logout Button -->
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
-                Logout
-            </button>
-        </form>
-    </div>
+@section('title', 'Dashboard Petugas')
+@section('page-title', 'Dashboard Petugas')
 
-    <p>Login sukses, petugas on duty 😎</p>
+@section('content')
+<div class="bg-white p-8 rounded shadow text-center max-w-xl w-full">
+    <h1 class="text-2xl font-bold mb-2">Halo, Petugas 👋</h1>
+    <p class="text-gray-600">Login sukses, petugas on duty 😎</p>
 </div>
+@endsection

@@ -6,7 +6,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Petugas\PetugasDashboardController;
 use App\Http\Controllers\Peminjam\PeminjamController;
-use App\Http\Controllers\Admin\RoleManagementController;
+use App\Http\Controllers\Admin\RoleManagementController; 
+use App\Http\Controllers\Admin\CategoryController;
 
 // Welcome
 Route::get('/', function () {
@@ -40,28 +41,32 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // ================= ADMIN =================
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])
-        ->name('admin.dashboard');
+Route::middleware(['auth', 'role:ADM'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 });
 
-// ================= ADMIN =================
+// menu bagian role management
 Route::middleware(['auth', 'role:ADM'])
-    ->prefix('admin')
-    ->name('admin.')
-    ->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])
-            ->name('dashboard');
-            
-        Route::get('/rolemanagement', [RoleManagementController::class, 'index'])
-            ->name('rolemanagement.index');
-        Route::get('/rolemanagement/{id}', [RoleManagementController::class, 'show'])
-            ->name('rolemanagement.show');
-        Route::put('/rolemanagement/{id}', [RoleManagementController::class, 'updateRole'])
-            ->name('rolemanagement.update');
-        Route::delete('/rolemanagement/{id}', [RoleManagementController::class, 'destroy'])
-            ->name('rolemanagement.destroy');
-});
+       ->prefix('admin')
+       ->name('admin.')
+       ->group(function () {
+           Route::get('/dashboard', [DashboardController::class, 'index'])
+               ->name('dashboard');
+               
+           Route::get('/rolemanagement', [RoleManagementController::class, 'index'])
+               ->name('rolemanagement.index');
+           Route::get('/rolemanagement/{id}', [RoleManagementController::class, 'show'])
+               ->name('rolemanagement.show');
+           Route::put('/rolemanagement/{id}', [RoleManagementController::class, 'updateRole'])
+               ->name('rolemanagement.update');
+           Route::delete('/rolemanagement/{id}', [RoleManagementController::class, 'destroy'])
+               ->name('rolemanagement.destroy');
+   });
+
+    // menu bagian kategori
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
+    });
 
 // ================= PETUGAS =================
 Route::middleware(['auth', 'role:PTG'])
