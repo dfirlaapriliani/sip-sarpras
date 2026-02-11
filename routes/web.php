@@ -8,6 +8,7 @@ use App\Http\Controllers\Petugas\PetugasDashboardController;
 use App\Http\Controllers\Peminjam\PeminjamController;
 use App\Http\Controllers\Admin\RoleManagementController; 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\BarangController;
 
 // Welcome
 Route::get('/', function () {
@@ -66,6 +67,11 @@ Route::middleware(['auth', 'role:ADM'])
     // menu bagian kategori
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
+    });
+
+    // bagian barang
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('barang', BarangController::class);
     });
 
 // ================= PETUGAS =================

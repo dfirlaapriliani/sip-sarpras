@@ -62,7 +62,7 @@
         </a>
 
         <!-- Barang -->
-        <a href="#" 
+        <a href="{{ route('admin.barang.index')}}" 
            class="nav-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 group {{ request()->routeIs('admin.barang*') ? 'active' : '' }}">
             <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center group-hover:bg-blue-500 transition-colors duration-200 icon-box-3d">
                 <svg class="w-5 h-5 text-gray-600 group-hover:text-white transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">

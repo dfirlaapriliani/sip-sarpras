@@ -6,15 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
+    public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('role_id')->nullable()->after('id');
-
-            $table->foreign('role_id')
-                ->references('id_role')
-                ->on('roles')
-                ->onDelete('cascade');
+            // Cek heula, lamun can aya wae nu ditambahkeun
+            if (!Schema::hasColumn('users', 'role_id')) {
+                $table->bigInteger('role_id')->unsigned()->nullable()->after('id');
+            }
         });
     }
 
