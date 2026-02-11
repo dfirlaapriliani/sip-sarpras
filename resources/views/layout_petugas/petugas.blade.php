@@ -13,21 +13,21 @@
     @stack('styles')
 </head>
 
-<body>
+<body class="bg-gray-50 overflow-x-hidden">
 
 <div class="flex min-h-screen">
 
     {{-- Sidebar --}}
     @include('components.petugas.sidebar')
 
-    {{-- Main --}}
-    <div class="flex-1 flex flex-col lg:ml-64 w-full">
+    {{-- Main Content Area --}}
+    <div class="flex-1 flex flex-col lg:ml-64">
 
         {{-- Navbar --}}
         @include('components.petugas.navbar')
 
         {{-- Content --}}
-        <main class="flex-1 p-4 sm:p-6 flex justify-center">
+        <main class="flex-1 p-4 sm:p-6">
             <div class="w-full max-w-6xl">
                 @yield('content')
             </div>

@@ -400,12 +400,12 @@
                 <!-- Card 1 --> 
                 <div class="card-3d bg-white p-6 sm:p-8 rounded-2xl">
                     <div class="image-container mb-4 sm:mb-6">
-                        <img src="{{ asset('assets_public/bacg.jpeg')}}" alt="Buku & Literatur" class="w-full h-full object-cover">
+                        <img src="{{ asset('assets_public/proyektor.jpg')}}" alt="Buku & Literatur" class="w-full h-full object-cover">
                     </div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-blue-900 mb-2 sm:mb-3">Buku & Literatur</h3>
-                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">Koleksi buku pelajaran, referensi, dan literatur pendukung pembelajaran</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-blue-900 mb-2 sm:mb-3">Proyektor</h3>
+                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">Koleksi proyektor</p>
                     <div class="flex justify-between items-center">
-                        <span class="text-blue-600 font-semibold text-sm sm:text-base">234 Items</span>
+                        <span class="text-blue-600 font-semibold text-sm sm:text-base">7 Items</span>
                         <button class="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm btn-3d">Lihat</button>
                     </div>
                 </div>
@@ -413,12 +413,12 @@
                 <!-- Card 2 -->
                 <div class="card-3d bg-white p-6 sm:p-8 rounded-2xl">
                     <div class="image-container mb-4 sm:mb-6">
-                        <img src="{{ asset('assets_public/bacg.jpeg')}}" alt="Buku & Literatur" class="w-full h-full object-cover">
+                        <img src="{{ asset('assets_public/mic.jpg')}}" alt="Buku & Literatur" class="w-full h-full object-cover">
                     </div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-blue-900 mb-2 sm:mb-3">Buku & Literatur</h3>
-                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">Koleksi buku pelajaran, referensi, dan literatur pendukung pembelajaran</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-blue-900 mb-2 sm:mb-3">Mic</h3>
+                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">Koleksi Mic</p>
                     <div class="flex justify-between items-center">
-                        <span class="text-blue-600 font-semibold text-sm sm:text-base">234 Items</span>
+                        <span class="text-blue-600 font-semibold text-sm sm:text-base">10 Items</span>
                         <button class="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm btn-3d">Lihat</button>
                     </div>
                 </div>
@@ -426,12 +426,12 @@
                 <!-- Card 3 -->
                 <div class="card-3d bg-white p-6 sm:p-8 rounded-2xl">
                     <div class="image-container mb-4 sm:mb-6">
-                        <img src="{{ asset('assets_public/bacg.jpeg')}}" alt="Buku & Literatur" class="w-full h-full object-cover">
+                        <img src="{{ asset('assets_public/stopkontak.jpg')}}" alt="Buku & Literatur" class="w-full h-full object-cover">
                     </div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-blue-900 mb-2 sm:mb-3">Buku & Literatur</h3>
-                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">Koleksi buku pelajaran, referensi, dan literatur pendukung pembelajaran</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-blue-900 mb-2 sm:mb-3">Stop kontak</h3>
+                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">Koleksi stopkontak</p>
                     <div class="flex justify-between items-center">
-                        <span class="text-blue-600 font-semibold text-sm sm:text-base">234 Items</span>
+                        <span class="text-blue-600 font-semibold text-sm sm:text-base">10 Items</span>
                         <button class="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm btn-3d">Lihat</button>
                     </div>
                 </div>
