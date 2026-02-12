@@ -45,10 +45,11 @@
                     </svg>
                 </a>
             </li>
+            
 
             <!-- Barang -->
             <li>
-                <a href="#" class="group relative flex items-center px-4 py-3 rounded-xl text-gray-700 hover:text-blue-600 transition-all duration-300 bg-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent shadow-sm hover:shadow-md">
+                <a href="{{ route('peminjam.barang.index') }}" class="group relative flex items-center px-4 py-3 rounded-xl text-gray-700 hover:text-blue-600 transition-all duration-300 bg-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent shadow-sm hover:shadow-md">
                     <div class="relative mr-3">
                         <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg flex items-center justify-center group-hover:scale-110 transition-all duration-300">
                             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

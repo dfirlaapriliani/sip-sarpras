@@ -9,7 +9,11 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
         </svg>
       </div>
-      <h2 class="text-lg font-bold text-gray-800">SIP-SARPRAS</h2>
+      <div class="text-center">
+  <h2 class="text-lg font-bold text-gray-800">SIP-SARPRAS</h2>
+  <p class="mt-1 text-sm text-gray-500 uppercase tracking-wide">Petugas</p>
+</div>
+
     </div>
     
     {{-- Close Button (Mobile Only) --}}
@@ -33,9 +37,9 @@
       </div>
       <span class="font-semibold">Dashboard</span>
     </a>
-
+  
     {{-- Data Barang --}}
-    <a href="#data-barang" 
+    <a href="{{ route('petugas.barang.index') }}" 
        class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl">
       <div class="w-10 h-10 rounded-lg flex items-center justify-center">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

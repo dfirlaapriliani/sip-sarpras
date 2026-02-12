@@ -6,15 +6,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Petugas\PetugasDashboardController;
 use App\Http\Controllers\Peminjam\PeminjamController;
+use App\Http\Controllers\Peminjam\BarangController as PeminjamBarangController;
+use App\Http\Controllers\Petugas\BarangController as PetugasBarangController;
 use App\Http\Controllers\Admin\RoleManagementController; 
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\BarangController;
+use App\Http\Controllers\Admin\BarangController as AdminBarangController;
 
-// Welcome
+// ================= WELCOME =================
 Route::get('/', function () {
     return view('welcome');
 });
 
+// ================= DASHBOARD REDIRECT =================
 Route::get('/dashboard', function () {
     $user = auth()->user();
     
@@ -41,70 +44,61 @@ Route::get('/dashboard', function () {
     return redirect('/login')->withErrors(['role' => 'Role Anda tidak dikenali. Silakan hubungi admin.']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// ================= ADMIN =================
-Route::middleware(['auth', 'role:ADM'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-});
-
-// menu bagian role management
+// ================= ADMIN ROUTES =================
 Route::middleware(['auth', 'role:ADM'])
-       ->prefix('admin')
-       ->name('admin.')
-       ->group(function () {
-           Route::get('/dashboard', [DashboardController::class, 'index'])
-               ->name('dashboard');
-               
-           Route::get('/rolemanagement', [RoleManagementController::class, 'index'])
-               ->name('rolemanagement.index');
-           Route::get('/rolemanagement/{id}', [RoleManagementController::class, 'show'])
-               ->name('rolemanagement.show');
-           Route::put('/rolemanagement/{id}', [RoleManagementController::class, 'updateRole'])
-               ->name('rolemanagement.update');
-           Route::delete('/rolemanagement/{id}', [RoleManagementController::class, 'destroy'])
-               ->name('rolemanagement.destroy');
-   });
-
-    // menu bagian kategori
-    Route::prefix('admin')->name('admin.')->group(function () {
-        Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        // Dashboard
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('dashboard');
+        
+        // Role Management
+        Route::get('/rolemanagement', [RoleManagementController::class, 'index'])
+            ->name('rolemanagement.index');
+        Route::get('/rolemanagement/{id}', [RoleManagementController::class, 'show'])
+            ->name('rolemanagement.show');
+        Route::put('/rolemanagement/{id}', [RoleManagementController::class, 'updateRole'])
+            ->name('rolemanagement.update');
+        Route::delete('/rolemanagement/{id}', [RoleManagementController::class, 'destroy'])
+            ->name('rolemanagement.destroy');
+        
+        // Categories
+        Route::resource('categories', CategoryController::class);
+        
+        // Barang
+        Route::resource('barang', AdminBarangController::class);
     });
 
-    // bagian barang
-    Route::prefix('admin')->name('admin.')->group(function () {
-        Route::resource('barang', BarangController::class);
-    });
-
-// ================= PETUGAS =================
+// ================= PETUGAS ROUTES =================
 Route::middleware(['auth', 'role:PTG'])
     ->prefix('petugas')
     ->name('petugas.')
     ->group(function () {
         Route::get('/dashboard', [PetugasDashboardController::class, 'index'])
             ->name('dashboard');
-});
+    });
 
-// ================= PEMINJAM =================
+    Route::get('/barang', [PetugasBarangController::class, 'index'])->name('petugas.barang.index');
+    Route::get('/barang/{id}', [PetugasBarangController::class, 'show'])->name('petugas.barang.show');
+
+// ================= PEMINJAM ROUTES =================
 Route::middleware(['auth', 'role:PMJ'])
     ->prefix('peminjam')
     ->name('peminjam.')
     ->group(function () {
+        // Dashboard
         Route::get('/dashboard', [PeminjamController::class, 'index'])
             ->name('dashboard');
-});
+        
+        // Barang - Hanya index dan show
+        Route::get('/barang', [PeminjamBarangController::class, 'index'])
+            ->name('barang.index');
+        Route::get('/barang/{id}', [PeminjamBarangController::class, 'show'])
+            ->name('barang.show');
+    });
 
-// ================= PETUGAS =================
-Route::middleware(['auth', 'role:petugas'])->group(function () {
-    Route::get('/petugas', [PetugasDashboardController::class, 'index'])
-        ->name('petugas.dashboard');
-});
-
-// ================= PEMINJAM =================
-Route::middleware(['auth', 'role:peminjam'])->group(function () {
-    Route::get('/peminjam', [PeminjamController::class, 'index'])
-        ->name('peminjam.dashboard');
-});
-
-// ================= PROFILE =================
+// ================= PROFILE ROUTES =================
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -120,7 +114,7 @@ Route::post('/logout', function () {
     return redirect('/login');
 })->name('logout');
 
-// ================= DEBUG ROLE =================
+// ================= DEBUG ROUTES (Hapus di production) =================
 Route::get('/debug-role', function () {
     return auth()->check() 
         ? auth()->user()->role 

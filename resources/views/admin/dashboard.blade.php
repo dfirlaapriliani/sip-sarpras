@@ -31,7 +31,7 @@
         <div class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-blue-100">
             <div class="p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="bg-blue-100 p-3 rounded-lg group-hover:bg-blue-200 transition-colors duration-300">
+                    <div class="bg-nblue-100 p-3 rounded-lg group-hover:bg-blue-200 transition-colors duration-300">
                         <svg class="w-6 h-6 md:w-8 md:h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
                         </svg>

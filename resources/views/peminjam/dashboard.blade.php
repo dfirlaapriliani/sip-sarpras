@@ -114,63 +114,6 @@
 
     </div>
 
-    <!-- Quick Actions -->
-    <div class="bg-white rounded-2xl shadow-lg p-6">
-        <div class="flex items-center justify-between mb-6">
-            <h3 class="text-xl font-bold text-gray-800">Quick Actions</h3>
-            <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg flex items-center justify-center">
-                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <!-- Pinjam Barang -->
-            <a href="#" class="group relative bg-gradient-to-br from-blue-50 to-white rounded-xl p-5 hover:shadow-lg transition-all duration-300 border border-blue-100 hover:border-blue-200">
-                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-md">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                    </svg>
-                </div>
-                <h4 class="font-semibold text-gray-800 text-sm mb-1">Pinjam Barang</h4>
-                <p class="text-xs text-gray-500">Ajukan peminjaman</p>
-            </a>
-
-            <!-- Lihat Barang -->
-            <a href="#" class="group relative bg-gradient-to-br from-purple-50 to-white rounded-xl p-5 hover:shadow-lg transition-all duration-300 border border-purple-100 hover:border-purple-200">
-                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-md">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-                    </svg>
-                </div>
-                <h4 class="font-semibold text-gray-800 text-sm mb-1">Lihat Barang</h4>
-                <p class="text-xs text-gray-500">Daftar barang</p>
-            </a>
-
-            <!-- Riwayat -->
-            <a href="#" class="group relative bg-gradient-to-br from-green-50 to-white rounded-xl p-5 hover:shadow-lg transition-all duration-300 border border-green-100 hover:border-green-200">
-                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-md">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                </div>
-                <h4 class="font-semibold text-gray-800 text-sm mb-1">Riwayat</h4>
-                <p class="text-xs text-gray-500">Lihat riwayat</p>
-            </a>
-
-            <!-- Kembalikan -->
-            <a href="#" class="group relative bg-gradient-to-br from-orange-50 to-white rounded-xl p-5 hover:shadow-lg transition-all duration-300 border border-orange-100 hover:border-orange-200">
-                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-md">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
-                    </svg>
-                </div>
-                <h4 class="font-semibold text-gray-800 text-sm mb-1">Kembalikan</h4>
-                <p class="text-xs text-gray-500">Pengembalian</p>
-            </a>
-        </div>
-    </div>
 
 </div>
 @endsection

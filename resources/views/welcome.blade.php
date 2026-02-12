@@ -645,7 +645,8 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-blue-900 text-base sm:text-lg mb-1 sm:mb-2">Alamat</h3>
-                                <p class="text-gray-600 text-sm sm:text-base">Jl. Pendidikan No. 123, Jakarta Selatan, DKI Jakarta 12345</p>
+                                <p class="text-gray-600 text-sm sm:text-base">Jalan Raya Laladon, Desa Laladon, Kecamatan Ciomas, Kabupaten Bogor, Jawa Barat<br>
+                        Jakarta Selatan 12345</p>
                             </div>
                         </div>
                     </div>
@@ -657,8 +658,8 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-blue-900 text-base sm:text-lg mb-1 sm:mb-2">Telepon</h3>
-                                <p class="text-gray-600 text-sm sm:text-base">(021) 1234-5678</p>
-                                <p class="text-gray-600 text-sm sm:text-base">+62 812-3456-7890</p>
+                                <p class="text-gray-600 text-sm sm:text-base"> (0251) -7520933</p>
+                                <p class="text-gray-600 text-sm sm:text-base"> 0896-1829-7321</p>
                             </div>
                         </div>
                     </div>
@@ -670,8 +671,7 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-blue-900 text-base sm:text-lg mb-1 sm:mb-2">Email</h3>
-                                <p class="text-gray-600 text-sm sm:text-base">sarpras@sekolah.sch.id</p>
-                                <p class="text-gray-600 text-sm sm:text-base">info@sekolah.sch.id</p>
+                                <p class="text-gray-600 text-sm sm:text-base">smkn1_ciomas@yahoo.co.id</p>
                             </div>
                         </div>
                     </div>
@@ -714,8 +714,8 @@
                         <span class="text-lg sm:text-xl font-bold">Sekolah</span>
                     </div>
                     <p class="text-blue-200 text-xs sm:text-sm leading-relaxed">
-                        SMA Negeri 1 Jakarta<br>
-                        Jl. Pendidikan No. 123<br>
+                        SMKN 1 Ciomas<br>
+                        Jalan Raya Laladon, Desa Laladon, Kecamatan Ciomas, Kabupaten Bogor, Jawa Barat<br>
                         Jakarta Selatan 12345
                     </p>
                 </div>
@@ -723,8 +723,6 @@
                 <div>
                     <h3 class="font-bold text-base sm:text-lg mb-3 sm:mb-4">Informasi Sarpras</h3>
                     <ul class="space-y-1 sm:space-y-2 text-blue-200 text-xs sm:text-sm">
-                        <li>Total Barang: 1,234</li>
-                        <li>Kategori: 15</li>
                         <li>Jam Operasional: 07:00 - 16:00</li>
                         <li>Hari Kerja: Senin - Jumat</li>
                     </ul>
@@ -733,10 +731,10 @@
                 <div>
                     <h3 class="font-bold text-base sm:text-lg mb-3 sm:mb-4">Kontak</h3>
                     <ul class="space-y-1 sm:space-y-2 text-blue-200 text-xs sm:text-sm">
-                        <li>📞 (021) 1234-5678</li>
-                        <li>📱 +62 812-3456-7890</li>
-                        <li>✉️ sarpras@sekolah.sch.id</li>
-                        <li>🌐 www.sekolah.sch.id</li>
+                        <li>📞 (0251)-7520933</li>
+                        <li>📱 0896-1829-7321</li>
+                        <li>✉️ smkn1_ciomas@yahoo.co.id</li>
+                        <li>🌐 www.smkn1ciomas.sch.id</li>
                     </ul>
                 </div>
                 
