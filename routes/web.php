@@ -7,8 +7,11 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Petugas\PetugasDashboardController;
 use App\Http\Controllers\Peminjam\PeminjamController;
 use App\Http\Controllers\Peminjam\BarangController as PeminjamBarangController;
+use App\Http\Controllers\Peminjam\PeminjamanController as PeminjamPeminjamanController;
+use App\Http\Controllers\Peminjam\NotifikasiController;
 use App\Http\Controllers\Petugas\BarangController as PetugasBarangController;
-use App\Http\Controllers\Admin\RoleManagementController; 
+use App\Http\Controllers\Petugas\PeminjamanController as PetugasPeminjamanController;
+use App\Http\Controllers\Admin\RoleManagementController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BarangController as AdminBarangController;
 
@@ -20,7 +23,7 @@ Route::get('/', function () {
 // ================= DASHBOARD REDIRECT =================
 Route::get('/dashboard', function () {
     $user = auth()->user();
-    
+
     if (!$user || !$user->role || !$user->role->kode_role) {
         Auth::logout();
         return redirect('/login')->withErrors(['role' => 'Akun Anda belum memiliki role yang valid. Silakan hubungi admin.']);
@@ -49,24 +52,14 @@ Route::middleware(['auth', 'role:ADM'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        // Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'index'])
-            ->name('dashboard');
-        
-        // Role Management
-        Route::get('/rolemanagement', [RoleManagementController::class, 'index'])
-            ->name('rolemanagement.index');
-        Route::get('/rolemanagement/{id}', [RoleManagementController::class, 'show'])
-            ->name('rolemanagement.show');
-        Route::put('/rolemanagement/{id}', [RoleManagementController::class, 'updateRole'])
-            ->name('rolemanagement.update');
-        Route::delete('/rolemanagement/{id}', [RoleManagementController::class, 'destroy'])
-            ->name('rolemanagement.destroy');
-        
-        // Categories
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/rolemanagement', [RoleManagementController::class, 'index'])->name('rolemanagement.index');
+        Route::get('/rolemanagement/{id}', [RoleManagementController::class, 'show'])->name('rolemanagement.show');
+        Route::put('/rolemanagement/{id}', [RoleManagementController::class, 'updateRole'])->name('rolemanagement.update');
+        Route::delete('/rolemanagement/{id}', [RoleManagementController::class, 'destroy'])->name('rolemanagement.destroy');
+
         Route::resource('categories', CategoryController::class);
-        
-        // Barang
         Route::resource('barang', AdminBarangController::class);
     });
 
@@ -75,27 +68,45 @@ Route::middleware(['auth', 'role:PTG'])
     ->prefix('petugas')
     ->name('petugas.')
     ->group(function () {
-        Route::get('/dashboard', [PetugasDashboardController::class, 'index'])
-            ->name('dashboard');
-    });
+        Route::get('/dashboard', [PetugasDashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/barang', [PetugasBarangController::class, 'index'])->name('petugas.barang.index');
-    Route::get('/barang/{id}', [PetugasBarangController::class, 'show'])->name('petugas.barang.show');
+        // Barang
+        Route::get('/barang', [PetugasBarangController::class, 'index'])->name('barang.index');
+        Route::get('/barang/{id}', [PetugasBarangController::class, 'show'])->name('barang.show');
+
+        // Peminjaman
+        Route::get('/peminjaman', [PetugasPeminjamanController::class, 'index'])->name('peminjaman.index');
+        Route::get('/peminjaman/{id}', [PetugasPeminjamanController::class, 'show'])->name('peminjaman.show');
+        Route::post('/peminjaman/{id}/approve', [PetugasPeminjamanController::class, 'approve'])->name('peminjaman.approve');
+        Route::post('/peminjaman/{id}/reject', [PetugasPeminjamanController::class, 'reject'])->name('peminjaman.reject');
+        Route::post('/peminjaman/{id}/pickup', [PetugasPeminjamanController::class, 'confirmPickup'])->name('peminjaman.pickup');
+        Route::post('/peminjaman/{id}/return', [PetugasPeminjamanController::class, 'confirmReturn'])->name('peminjaman.return');
+    });
 
 // ================= PEMINJAM ROUTES =================
 Route::middleware(['auth', 'role:PMJ'])
     ->prefix('peminjam')
     ->name('peminjam.')
     ->group(function () {
-        // Dashboard
-        Route::get('/dashboard', [PeminjamController::class, 'index'])
-            ->name('dashboard');
-        
-        // Barang - Hanya index dan show
-        Route::get('/barang', [PeminjamBarangController::class, 'index'])
-            ->name('barang.index');
-        Route::get('/barang/{id}', [PeminjamBarangController::class, 'show'])
-            ->name('barang.show');
+        Route::get('/dashboard', [PeminjamController::class, 'index'])->name('dashboard');
+
+        // Barang + Cart
+        Route::get('/barang', [PeminjamBarangController::class, 'index'])->name('barang.index');
+        Route::get('/barang/{id}', [PeminjamBarangController::class, 'show'])->name('barang.show');
+        Route::post('/cart/add', [PeminjamBarangController::class, 'cartAdd'])->name('cart.add');
+        Route::delete('/cart/{id}', [PeminjamBarangController::class, 'cartRemove'])->name('cart.remove');
+        Route::delete('/cart', [PeminjamBarangController::class, 'cartClear'])->name('cart.clear');
+
+        // Peminjaman — /create HARUS sebelum /{id} supaya tidak bentrok
+        Route::get('/peminjaman', [PeminjamPeminjamanController::class, 'index'])->name('peminjaman.index');
+        Route::get('/peminjaman/create', [PeminjamPeminjamanController::class, 'create'])->name('peminjaman.create');
+        Route::post('/peminjaman', [PeminjamPeminjamanController::class, 'store'])->name('peminjaman.store');
+        Route::get('/peminjaman/{id}', [PeminjamPeminjamanController::class, 'show'])->name('peminjaman.show');
+        Route::patch('/peminjaman/{id}/cancel', [PeminjamPeminjamanController::class, 'cancel'])->name('peminjaman.cancel');
+
+        // Notifikasi
+        Route::get('/notifikasi/{id}/baca', [NotifikasiController::class, 'baca'])->name('notifikasi.baca');
+        Route::post('/notifikasi/baca-semua', [NotifikasiController::class, 'bacaSemua'])->name('notifikasi.baca-semua');
     });
 
 // ================= PROFILE ROUTES =================
@@ -110,15 +121,12 @@ Route::post('/logout', function () {
     Auth::logout();
     request()->session()->invalidate();
     request()->session()->regenerateToken();
-
     return redirect('/login');
 })->name('logout');
 
 // ================= DEBUG ROUTES (Hapus di production) =================
 Route::get('/debug-role', function () {
-    return auth()->check() 
-        ? auth()->user()->role 
-        : 'BELUM LOGIN BRO 💀';
+    return auth()->check() ? auth()->user()->role : 'BELUM LOGIN BRO 💀';
 });
 
 Route::get('/cek-role', function () {

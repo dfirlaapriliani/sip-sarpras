@@ -8,7 +8,10 @@
     
     {{-- Welcome Card --}}
     <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl shadow-xl p-6 md:p-8 text-white">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="fle
+        
+        
+        x flex-col md:flex-row items-center justify-between gap-4">
             <div class="text-center md:text-left">
                 <h1 class="text-2xl md:text-3xl font-bold mb-2">Selamat Datang, {{ auth()->user()->name ?? 'Petugas' }}! 👋</h1>
                 <p class="text-blue-100">Siap mengelola sarana dan prasarana hari ini</p>

@@ -65,27 +65,9 @@
                 </a>
             </li>
 
-            <!-- Peminjaman & Pengembalian -->
-            <li>
-                <a href="#" class="group relative flex items-center px-4 py-3 rounded-xl text-gray-700 hover:text-blue-600 transition-all duration-300 bg-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent shadow-sm hover:shadow-md">
-                    <div class="relative mr-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg flex items-center justify-center group-hover:scale-110 transition-all duration-300">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
-                            </svg>
-                        </div>
-                        <div class="absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-600 rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <span class="font-semibold text-sm">Peminjaman</span>
-                    <svg class="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </a>
-            </li>
-
             <!-- Riwayat -->
             <li>
-                <a href="#" class="group relative flex items-center px-4 py-3 rounded-xl text-gray-700 hover:text-blue-600 transition-all duration-300 bg-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent shadow-sm hover:shadow-md">
+                <a href="{{ route('peminjam.peminjaman.index') }}" class="group relative flex items-center px-4 py-3 rounded-xl text-gray-700 hover:text-blue-600 transition-all duration-300 bg-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent shadow-sm hover:shadow-md">
                     <div class="relative mr-3">
                         <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg flex items-center justify-center group-hover:scale-110 transition-all duration-300">
                             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

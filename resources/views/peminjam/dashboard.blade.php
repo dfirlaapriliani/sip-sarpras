@@ -23,13 +23,12 @@
                 </div>
             </div>
         </div>
-        <!-- Decorative circles -->
         <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
         <div class="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
     </div>
 
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Stats Cards — 4 berjejer -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
 
         <!-- Total Peminjaman -->
         <div class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
@@ -45,16 +44,15 @@
                 </div>
                 <h3 class="text-gray-500 text-sm font-medium mb-2">Total Peminjaman</h3>
                 <div class="flex items-end justify-between">
-                    <p class="text-4xl font-bold text-gray-800">12</p>
+                    <p class="text-4xl font-bold text-gray-800">{{ $totalPeminjaman }}</p>
                     <div class="flex items-center text-green-600 text-sm font-semibold">
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
                         </svg>
-                        <span>+2 bulan ini</span>
+                        <span>+{{ $bulanIni }} bulan ini</span>
                     </div>
                 </div>
             </div>
-            <!-- Decorative element -->
             <div class="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-100 to-transparent rounded-tl-full opacity-20"></div>
         </div>
 
@@ -72,20 +70,19 @@
                 </div>
                 <h3 class="text-gray-500 text-sm font-medium mb-2">Sedang Dipinjam</h3>
                 <div class="flex items-end justify-between">
-                    <p class="text-4xl font-bold text-gray-800">3</p>
+                    <p class="text-4xl font-bold text-gray-800">{{ $sedangDipinjam }}</p>
                     <div class="flex items-center text-orange-600 text-sm font-semibold">
                         <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
                         </svg>
-                        <span>Dikembalikan</span>
+                        <span>Segera kembali</span>
                     </div>
                 </div>
             </div>
-            <!-- Decorative element -->
             <div class="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-100 to-transparent rounded-tl-full opacity-20"></div>
         </div>
 
-        <!-- Riwayat -->
+        <!-- Dikembalikan -->
         <div class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-br from-green-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div class="relative p-6">
@@ -97,23 +94,47 @@
                     </div>
                     <span class="text-xs font-semibold text-green-600 bg-green-50 px-3 py-1 rounded-full">Selesai</span>
                 </div>
-                <h3 class="text-gray-500 text-sm font-medium mb-2">Riwayat</h3>
+                <h3 class="text-gray-500 text-sm font-medium mb-2">Dikembalikan</h3>
                 <div class="flex items-end justify-between">
-                    <p class="text-4xl font-bold text-gray-800">20</p>
+                    <p class="text-4xl font-bold text-gray-800">{{ $selesai }}</p>
                     <div class="flex items-center text-green-600 text-sm font-semibold">
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span>Semuanya</span>
+                        <span>Selesai semua</span>
                     </div>
                 </div>
             </div>
-            <!-- Decorative element -->
             <div class="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-br from-green-100 to-transparent rounded-tl-full opacity-20"></div>
         </div>
 
-    </div>
+        <!-- Ditolak -->
+        <div class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-red-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="relative p-6">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-red-100 to-red-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md">
+                        <svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-3 py-1 rounded-full">Ditolak</span>
+                </div>
+                <h3 class="text-gray-500 text-sm font-medium mb-2">Ditolak</h3>
+                <div class="flex items-end justify-between">
+                    <p class="text-4xl font-bold text-gray-800">{{ $ditolak }}</p>
+                    <div class="flex items-center text-red-500 text-sm font-semibold">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                        <span>Tidak disetujui</span>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-br from-red-100 to-transparent rounded-tl-full opacity-20"></div>
+        </div>
 
+    </div>
 
 </div>
 @endsection
