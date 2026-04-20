@@ -61,7 +61,7 @@
     </a>
 
     {{-- Laporan --}}
-    <a href="#laporan" 
+    <a href="{{ route('petugas.laporan.index')}}" 
        class="menu-item flex items-center gap-4 px-4 py-3.5 rounded-xl">
       <div class="w-10 h-10 rounded-lg flex items-center justify-center">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

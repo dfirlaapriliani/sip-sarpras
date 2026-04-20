@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
+use App\Helpers\NotifPetugas;
 use App\Models\Peminjaman;
 use App\Models\Notifikasi;
 use Illuminate\Http\Request;
@@ -84,7 +85,7 @@ class PeminjamanController extends Controller
             ]);
         });
 
-        // Kirim notifikasi ke peminjam
+        // Notif ke peminjam
         Notifikasi::kirim(
             $peminjaman->user_id,
             '✅ Peminjaman Disetujui!',
@@ -110,7 +111,7 @@ class PeminjamanController extends Controller
             'catatan_petugas' => $request->catatan_petugas,
         ]);
 
-        // Kirim notifikasi ke peminjam
+        // Notif ke peminjam
         Notifikasi::kirim(
             $peminjaman->user_id,
             '❌ Peminjaman Ditolak',
@@ -127,7 +128,7 @@ class PeminjamanController extends Controller
         $peminjaman = Peminjaman::where('status', 'disetujui')->findOrFail($id);
         $peminjaman->update(['status' => 'dipinjam']);
 
-        // Kirim notifikasi ke peminjam
+        // Notif ke peminjam
         Notifikasi::kirim(
             $peminjaman->user_id,
             '📦 Barang Sudah Diambil',
@@ -148,7 +149,7 @@ class PeminjamanController extends Controller
         ]);
 
         $peminjaman = Peminjaman::where('status', 'dipinjam')
-            ->with('items.barang')
+            ->with('items.barang', 'peminjam')
             ->findOrFail($id);
 
         DB::transaction(function () use ($peminjaman, $request) {
@@ -171,13 +172,21 @@ class PeminjamanController extends Controller
             ]);
         });
 
-        // Kirim notifikasi ke peminjam
+        // Notif ke peminjam
         Notifikasi::kirim(
             $peminjaman->user_id,
             '🎉 Pengembalian Dikonfirmasi',
             'Pengembalian barang untuk peminjaman ' . $peminjaman->kode_peminjaman . ' telah dikonfirmasi. Terima kasih!',
             'success',
             route('peminjam.peminjaman.show', $peminjaman->id)
+        );
+
+        // Notif ke semua petugas — barang sudah kembali
+        NotifPetugas::kirimSemua(
+            '🏁 Barang Dikembalikan',
+            ($peminjaman->peminjam->name ?? 'Peminjam') . ' mengembalikan barang untuk ' . $peminjaman->kode_peminjaman . '.',
+            'success',
+            route('petugas.peminjaman.show', $peminjaman->id)
         );
 
         return back()->with('success', 'Pengembalian barang berhasil dikonfirmasi.');

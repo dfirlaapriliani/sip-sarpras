@@ -3,7 +3,7 @@
     <!-- Logo dengan background biru subtle -->
     <div class="px-4 py-2 bg-gradient-to-r from-blue-50 to-white border-b border-gray-100">
         <div class="flex items-center justify-center h-14">
-            <img src="{{asset('assets_admin/img/invex.png')}}" 
+            <img src="{{asset('assets_admin/img/sip.png')}}" 
                 class="h-14 w-auto object-contain scale-125 drop-shadow-md">
         </div>
     </div>
@@ -75,20 +75,19 @@
             <div class="w-2 h-2 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
         </a>
 
-        <!-- Peminjaman -->
-        <a href="#" 
-           class="nav-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 group {{ request()->routeIs('admin.peminjaman*') ? 'active' : '' }}">
+       <!-- Log Aktivitas -->
+        <a href="{{ route('admin.log-aktivitas.index') }}" 
+        class="nav-item flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 group {{ request()->routeIs('admin.log-aktivitas*') ? 'active' : '' }}">
             <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center group-hover:bg-blue-500 transition-colors duration-200 icon-box-3d">
                 <svg class="w-5 h-5 text-gray-600 group-hover:text-white transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
             </div>
             <div class="flex-1">
-                <span class="font-medium text-sm">Peminjaman</span>
+                <span class="font-medium text-sm">Log Aktivitas</span>
             </div>
             <div class="w-2 h-2 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
         </a>
-
         
     <!-- pembatas -->
     </nav>

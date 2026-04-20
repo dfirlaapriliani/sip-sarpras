@@ -15,7 +15,7 @@
     <!-- Logo Section with 3D Effect -->
     <div class="relative p-6 border-b border-blue-100 bg-white bg-opacity-60 backdrop-blur-sm">
         <div class="flex justify-center">
-            <img src="{{ asset('assets_peminjam/img/invex.png') }}" 
+            <img src="{{ asset('assets_public/sip.png') }}" 
                 alt="INVEX Logo" 
                 class="h-10 w-auto object-contain">
         </div>

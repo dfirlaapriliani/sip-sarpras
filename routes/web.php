@@ -11,9 +11,11 @@ use App\Http\Controllers\Peminjam\PeminjamanController as PeminjamPeminjamanCont
 use App\Http\Controllers\Peminjam\NotifikasiController;
 use App\Http\Controllers\Petugas\BarangController as PetugasBarangController;
 use App\Http\Controllers\Petugas\PeminjamanController as PetugasPeminjamanController;
+use App\Http\Controllers\Petugas\LaporanController;
 use App\Http\Controllers\Admin\RoleManagementController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BarangController as AdminBarangController;
+use App\Http\Controllers\Admin\LogAktivitasController;
 
 // ================= WELCOME =================
 Route::get('/', function () {
@@ -47,6 +49,7 @@ Route::get('/dashboard', function () {
     return redirect('/login')->withErrors(['role' => 'Role Anda tidak dikenali. Silakan hubungi admin.']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 // ================= ADMIN ROUTES =================
 Route::middleware(['auth', 'role:ADM'])
     ->prefix('admin')
@@ -61,6 +64,10 @@ Route::middleware(['auth', 'role:ADM'])
 
         Route::resource('categories', CategoryController::class);
         Route::resource('barang', AdminBarangController::class);
+        Route::get('/dashboard/stats', [DashboardController::class, 'stats'])->name('dashboard.stats');
+
+        Route::get('/log-aktivitas', [App\Http\Controllers\Admin\LogAktivitasController::class, 'index'])
+            ->name('log-aktivitas.index');
     });
 
 // ================= PETUGAS ROUTES =================
@@ -69,6 +76,10 @@ Route::middleware(['auth', 'role:PTG'])
     ->name('petugas.')
     ->group(function () {
         Route::get('/dashboard', [PetugasDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/stats', [PetugasDashboardController::class, 'stats'])->name('dashboard.stats');
+        Route::get('/notifikasi',           [NotifikasiController::class, 'index'])    ->name('notifikasi.index');
+        Route::post('/notifikasi/{id}/baca', [NotifikasiController::class, 'baca'])    ->name('notifikasi.baca');
+        Route::post('/notifikasi/baca-semua',[NotifikasiController::class, 'bacaSemua'])->name('notifikasi.baca-semua');
 
         // Barang
         Route::get('/barang', [PetugasBarangController::class, 'index'])->name('barang.index');
@@ -81,6 +92,11 @@ Route::middleware(['auth', 'role:PTG'])
         Route::post('/peminjaman/{id}/reject', [PetugasPeminjamanController::class, 'reject'])->name('peminjaman.reject');
         Route::post('/peminjaman/{id}/pickup', [PetugasPeminjamanController::class, 'confirmPickup'])->name('peminjaman.pickup');
         Route::post('/peminjaman/{id}/return', [PetugasPeminjamanController::class, 'confirmReturn'])->name('peminjaman.return');
+
+        // Laporan
+        Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+        Route::get('/laporan/export-pdf', [LaporanController::class, 'exportPdf'])->name('laporan.export-pdf');
+        Route::get('/laporan/export-excel', [LaporanController::class, 'exportExcel'])->name('laporan.export-excel');
     });
 
 // ================= PEMINJAM ROUTES =================

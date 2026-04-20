@@ -69,6 +69,7 @@
     <!-- Search + View Toggle -->
     <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
         <form method="GET" action="{{ route('peminjam.barang.index') }}" class="flex gap-2 flex-1 sm:flex-initial">
+            @if(request('category_id'))<input type="hidden" name="category_id" value="{{ request('category_id') }}">@endif
             <input type="text" name="search" placeholder="Cari barang..."
                    value="{{ request('search') }}"
                    class="flex-1 sm:w-56 text-sm rounded-lg border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 px-4 py-2.5">
@@ -76,7 +77,7 @@
                     class="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium transition">
                 Cari
             </button>
-            @if(request('search'))
+            @if(request('search') || request('category_id'))
                 <a href="{{ route('peminjam.barang.index') }}"
                    class="px-3 py-2.5 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 text-sm font-medium">✕</a>
             @endif
@@ -103,6 +104,25 @@
         </div>
     </div>
 </div>
+
+<!-- CATEGORY FILTER CHIPS -->
+@if($categories->count() > 0)
+<div class="flex flex-wrap gap-2 mb-5">
+    <a href="{{ route('peminjam.barang.index', array_merge(request()->except('category_id','page'), [])) }}"
+       class="px-4 py-1.5 rounded-full text-sm font-semibold transition border-2
+              {{ !request('category_id') ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400' }}">
+        Semua
+    </a>
+    @foreach($categories as $cat)
+    <a href="{{ route('peminjam.barang.index', array_merge(request()->except('category_id','page'), ['category_id' => $cat->id])) }}"
+       class="px-4 py-1.5 rounded-full text-sm font-semibold transition border-2
+              {{ request('category_id') == $cat->id ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400' }}">
+        {{ $cat->name }}
+        <span class="ml-1 text-xs opacity-75">({{ $cat->barangs_count }})</span>
+    </a>
+    @endforeach
+</div>
+@endif
 
 @if($barangs->count() > 0)
 
@@ -138,10 +158,9 @@
             </div>
             @endif
 
-            <!-- STOCK BADGE -->>
-            <div class="absolute bottom-3 left-3 text-xs font-bold px-3 py-1.5 rounded-full border-2 backdrop-blur shadow-sm
-                {{ $barang->stok <= 3 ? 'bg-red-100 text-red-900 border-red-400' : 'bg-orange-100 text-orange-900 border-orange-400' }}">
-                stok: {{ $barang->stok }}{{ $barang->stok <= 3 ? ' ⚠️' : '' }}
+            <!-- STOCK BADGE -->
+            <div class="absolute bottom-3 left-3 bg-orange-100 text-orange-900 text-xs font-bold px-3 py-1.5 rounded-full border-2 border-orange-400 backdrop-blur shadow-sm">
+                stok: {{ $barang->stok }}
             </div>
         </div>
 

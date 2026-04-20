@@ -4,48 +4,41 @@ namespace App\Http\Controllers\Peminjam;
 
 use App\Http\Controllers\Controller;
 use App\Models\Barang;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
-    /**
-     * Display a listing of available items (with checklist support).
-     */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-
-        $barangs = Barang::where('stok', '>', 0)
+        $query = Barang::with('category')
             ->where('status', 'tersedia')
-            ->when($search, function ($query, $search) {
-                $query->where('nama_barang', 'like', '%' . $search . '%');
-            })
-            ->orderBy('nama_barang', 'asc')
-            ->paginate(12)
-            ->withQueryString();
+            ->where('stok', '>', 0);
 
-        // Ambil cart dari session untuk highlight barang yang sudah dipilih
+        if ($request->filled('search')) {
+            $query->where('nama_barang', 'like', '%' . $request->search . '%');
+        }
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        $barangs    = $query->orderBy('nama_barang')->paginate(12)->withQueryString();
+        $categories = Category::orderBy('name')->withCount(['barangs' => function($q) {
+            $q->where('status', 'tersedia')->where('stok', '>', 0);
+        }])->get();
+
         $cart = session('cart', []);
 
-        return view('peminjam.barang.index', compact('barangs', 'cart'));
+        return view('peminjam.barang.index', compact('barangs', 'categories', 'cart'));
     }
 
-    /**
-     * Display the specified item detail.
-     */
     public function show($id)
     {
-        $barang = Barang::findOrFail($id);
+        $barang = Barang::with('category')->findOrFail($id);
         $cart   = session('cart', []);
-
         return view('peminjam.barang.show', compact('barang', 'cart'));
     }
 
-    /* ─── Cart (session-based) ─────────────────────────────── */
-
-    /**
-     * Tambah / update barang di cart session.
-     */
     public function cartAdd(Request $request)
     {
         $request->validate([
@@ -54,39 +47,32 @@ class BarangController extends Controller
         ]);
 
         $barang = Barang::findOrFail($request->barang_id);
+        $cart   = session('cart', []);
 
         if ($request->jumlah > $barang->stok) {
             return back()->with('error', 'Jumlah melebihi stok tersedia (' . $barang->stok . ').');
         }
 
-        $cart = session('cart', []);
         $cart[$barang->id] = [
             'barang_id'   => $barang->id,
             'nama_barang' => $barang->nama_barang,
-            'foto'        => $barang->foto,
+            'jumlah'      => $request->jumlah,
             'stok'        => $barang->stok,
-            'jumlah'      => (int) $request->jumlah,
+            'foto'        => $barang->foto,
         ];
-        session(['cart' => $cart]);
 
+        session(['cart' => $cart]);
         return back()->with('success', '"' . $barang->nama_barang . '" ditambahkan ke daftar pinjam.');
     }
 
-    /**
-     * Hapus satu barang dari cart.
-     */
-    public function cartRemove($barangId)
+    public function cartRemove($id)
     {
         $cart = session('cart', []);
-        unset($cart[$barangId]);
+        unset($cart[$id]);
         session(['cart' => $cart]);
-
-        return back()->with('success', 'Barang dihapus dari daftar pinjam.');
+        return back()->with('success', 'Barang dihapus dari daftar.');
     }
 
-    /**
-     * Kosongkan seluruh cart.
-     */
     public function cartClear()
     {
         session()->forget('cart');

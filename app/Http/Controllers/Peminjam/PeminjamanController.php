@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Peminjam;
 
 use App\Http\Controllers\Controller;
+use App\Helpers\NotifPetugas;
 use App\Models\Barang;
 use App\Models\Peminjaman;
 use App\Models\PeminjamanItem;
@@ -20,7 +21,20 @@ class PeminjamanController extends Controller
                 ->with('error', 'Pilih barang terlebih dahulu.');
         }
 
-        return view('peminjam.peminjaman.create', compact('cart'));
+        $barangIds  = array_column($cart, 'barang_id');
+        $barangData = Barang::whereIn('id', $barangIds)->get()->keyBy('id');
+
+        $maxHariGlobal = null;
+        foreach ($cart as $item) {
+            $b = $barangData->get($item['barang_id']);
+            if ($b && $b->minimal_peminjaman) {
+                if ($maxHariGlobal === null || $b->minimal_peminjaman < $maxHariGlobal) {
+                    $maxHariGlobal = $b->minimal_peminjaman;
+                }
+            }
+        }
+
+        return view('peminjam.peminjaman.create', compact('cart', 'barangData', 'maxHariGlobal'));
     }
 
     public function store(Request $request)
@@ -43,24 +57,28 @@ class PeminjamanController extends Controller
         $tanggalKembali = \Carbon\Carbon::parse($request->tanggal_kembali);
         $durasiHari     = $tanggalPinjam->diffInDays($tanggalKembali);
 
-        // Validasi stok + max hari per barang
+        $errors = [];
         foreach ($cart as $item) {
             $barang = Barang::find($item['barang_id']);
 
             if (!$barang || $barang->stok < $item['jumlah'] || $barang->status !== 'tersedia') {
-                return back()->with('error', 'Stok barang "' . $item['nama_barang'] . '" tidak mencukupi atau sudah tidak tersedia.');
+                $errors[] = 'Stok barang "' . $item['nama_barang'] . '" tidak mencukupi atau sudah tidak tersedia.';
+                continue;
             }
 
-            // Validasi batas maksimal hari peminjaman
             if ($barang->minimal_peminjaman && $durasiHari > $barang->minimal_peminjaman) {
-                return back()->with('error',
-                    'Durasi peminjaman "' . $barang->nama_barang . '" melebihi batas maksimal ' .
-                    $barang->minimal_peminjaman . ' hari. Kamu memilih ' . $durasiHari . ' hari.'
-                )->withInput();
+                $errors[] = '"' . $barang->nama_barang . '" hanya boleh dipinjam maksimal ' .
+                    $barang->minimal_peminjaman . ' hari, tapi kamu memilih ' . $durasiHari . ' hari.';
             }
         }
 
-        DB::transaction(function () use ($request, $cart) {
+        if (!empty($errors)) {
+            return back()->withInput()->withErrors(['durasi' => $errors]);
+        }
+
+        $peminjaman = null;
+
+        DB::transaction(function () use ($request, $cart, &$peminjaman) {
             $peminjaman = Peminjaman::create([
                 'user_id'          => auth()->id(),
                 'kode_peminjaman'  => Peminjaman::generateKode(),
@@ -81,6 +99,14 @@ class PeminjamanController extends Controller
 
             session()->forget('cart');
         });
+
+        // Notif ke semua petugas — ada peminjaman baru
+        NotifPetugas::kirimSemua(
+            '📋 Peminjaman Baru!',
+            auth()->user()->name . ' mengajukan peminjaman ' . $peminjaman->kode_peminjaman . '. Segera proses.',
+            'info',
+            route('petugas.peminjaman.show', $peminjaman->id)
+        );
 
         return redirect()->route('peminjam.peminjaman.index')
             ->with('success', 'Permohonan peminjaman berhasil diajukan! Tunggu konfirmasi petugas.');
@@ -112,6 +138,14 @@ class PeminjamanController extends Controller
             ->findOrFail($id);
 
         $peminjaman->update(['status' => 'ditolak']);
+
+        // Notif ke semua petugas — peminjaman dibatalkan
+        NotifPetugas::kirimSemua(
+            '🚫 Peminjaman Dibatalkan',
+            auth()->user()->name . ' membatalkan peminjaman ' . $peminjaman->kode_peminjaman . '.',
+            'danger',
+            null
+        );
 
         return back()->with('success', 'Permohonan berhasil dibatalkan.');
     }
