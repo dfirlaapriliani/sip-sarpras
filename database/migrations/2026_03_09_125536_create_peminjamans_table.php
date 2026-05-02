@@ -31,7 +31,7 @@ return new class extends Migration
 
         Schema::create('peminjaman_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('peminjaman_id')->constrained()->onDelete('cascade');
+            $table->foreignId('peminjaman_id')->constrained('peminjamans')->onDelete('cascade');
             $table->foreignId('barang_id')->constrained()->onDelete('cascade');
             $table->integer('jumlah')->default(1);
             $table->string('kondisi_kembali')->nullable(); // catatan kondisi saat dikembalikan
